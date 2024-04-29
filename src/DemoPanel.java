@@ -52,7 +52,7 @@ public class DemoPanel extends JPanel {
         setStartNode(3, 6);
         setGoalNode(11, 3);
 
-        // Place solid npdes
+        // Place solid nodes
         setSolidNode(10, 2);
         setSolidNode(10, 3);
         setSolidNode(10, 4);
@@ -69,7 +69,7 @@ public class DemoPanel extends JPanel {
 
         setCostOnNodes();
     }
-    private void setStartNode(int col, int row) {
+    public void setStartNode(int col, int row) {
         node[col][row].setAsStart();
         startNode = node[col][row];
         currentNode = startNode;

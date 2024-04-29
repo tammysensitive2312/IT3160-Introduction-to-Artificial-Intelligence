@@ -40,7 +40,7 @@ public class Node extends JButton implements ActionListener {
         setBackground(Color.YELLOW);
         setForeground(Color.BLACK);
         setText("Goal");
-        start = true;
+        goal = true;
     }
 
     public void setAsSolid() {
@@ -68,4 +68,5 @@ public class Node extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         setBackground(Color.ORANGE);
     }
+
 }
