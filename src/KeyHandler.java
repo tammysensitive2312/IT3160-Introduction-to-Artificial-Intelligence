@@ -1,3 +1,4 @@
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -17,6 +18,9 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_ENTER) {
             dp.autoSearch();
+        }
+        if (code == KeyEvent.VK_R) {
+            dp.resetGrid();
         }
     }
 

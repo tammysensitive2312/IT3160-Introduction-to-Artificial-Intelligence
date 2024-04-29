@@ -31,7 +31,7 @@ public class Node extends JButton implements ActionListener {
     public void setAsStart() {
         setBackground(Color.BLUE);
         setForeground(Color.WHITE);
-        setText("Start");
+//        setText("Start");
         start = true;
     }
 
@@ -39,7 +39,7 @@ public class Node extends JButton implements ActionListener {
     public void setAsGoal() {
         setBackground(Color.YELLOW);
         setForeground(Color.BLACK);
-        setText("Goal");
+//        setText("Goal");
         goal = true;
     }
 
@@ -60,13 +60,53 @@ public class Node extends JButton implements ActionListener {
         checked = true;
     }
 
+    public void setAsNormal() {
+        setBackground(Color.WHITE);
+        setForeground(Color.BLACK);
+        start = false;
+        goal = false;
+        solid = false;
+    }
+
     public void setAsPath() {
         setBackground(Color.GREEN);
+        setForeground(Color.BLACK);
+    }
+
+    public void reset() {
+        parent = null;
+        gCost = 0;
+        hCost = 0;
+        fCost = 0;
+        start = false;
+        goal = false;
+        solid = false;
+        open = false;
+        checked = false;
+        setText("");
+        setBackground(Color.white);
         setForeground(Color.BLACK);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         setBackground(Color.ORANGE);
+        if (!start && !goal && !solid) {
+            if (((DemoPanel) getParent()).setStartOrGoalNode(this)) {
+                if (start) {
+                    setAsStart();
+                } else if (goal) {
+                    setAsGoal();
+                }
+            }
+        }
+
+        if (!start && !goal) {
+            if (!solid) {
+                setAsSolid();
+            } else {
+                setAsNormal();
+            }
+        }
     }
 
 }

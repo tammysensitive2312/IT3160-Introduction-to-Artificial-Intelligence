@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class DemoPanel extends JPanel {
     /** change the maxCol maxRow and NodeSize can change the window */
     // Screen settings
-    final int maxCol = 15;
-    final int maxRow = 10;
+    final int maxCol = 20;
+    final int maxRow = 15;
     // một cạnh của node
-    final int nodeSize = 70;
+    final int nodeSize = 50;
     final int screenWidth = nodeSize * maxCol;
     final int screenHeight = nodeSize * maxRow;
 
@@ -37,6 +37,7 @@ public class DemoPanel extends JPanel {
 
         while (col < maxCol && row < maxRow) {
             node[col][row] = new Node(col, row);
+            node[col][row].setFocusable(false);
             this.add(node[col][row]);
 
             col++;
@@ -45,56 +46,47 @@ public class DemoPanel extends JPanel {
                 row++;
             }
         }
-        // Set start and goal node
-        /* Pass another parameter value to initialize the start and goal nodes
-          can use jbutton to retrieve the node parameter just pressed
-          and pass it to the function ...*/
-        setStartNode(3, 6);
-        setGoalNode(11, 3);
 
-        // Place solid nodes
-        setSolidNode(10, 2);
-        setSolidNode(10, 3);
-        setSolidNode(10, 4);
-        setSolidNode(10, 5);
-        setSolidNode(10, 6);
-        setSolidNode(10, 7);
-        setSolidNode(6, 2);
-        setSolidNode(7, 2);
-        setSolidNode(8, 2);
-        setSolidNode(9, 2);
-        setSolidNode(11, 7);
-        setSolidNode(12, 7);
-        setSolidNode(6, 1);
-
-        setCostOnNodes();
-    }
-    public void setStartNode(int col, int row) {
-        node[col][row].setAsStart();
-        startNode = node[col][row];
-        currentNode = startNode;
     }
 
-    private void setGoalNode(int col, int row) {
-        node[col][row].setAsGoal();
-        goalNode = node[col][row];
-    }
+//    private void setSolidNode(int col, int row) {
+//        node[col][row].setAsSolid();
+//    }
 
-    private void setSolidNode(int col, int row) {
-        node[col][row].setAsSolid();
-    }
+    public void setCostOnNodes() {
 
-    private void setCostOnNodes() {
-        int col = 0;
-        int row = 0;
-        while (col < maxCol && row < maxRow) {
-            getCost(node[col][row]);
-            col++;
-            if (col == maxCol) {
-                col = 0;
-                row++;
+        if (startNode != null && goalNode != null) {
+            int col = 0;
+            int row = 0;
+            while (col < maxCol && row < maxRow) {
+                getCost(node[col][row]);
+                col++;
+                if (col == maxCol) {
+                    col = 0;
+                    row++;
+                }
             }
         }
+    }
+
+    // method to set start and goal nodes
+    public boolean setStartOrGoalNode(Node n) {
+        boolean updated = false;
+        if (startNode == null) {
+            startNode = n;
+            currentNode = startNode;
+            n.start = true;
+            updated = true;
+        } else if (goalNode == null && n != startNode) {
+            goalNode = n;
+            n.goal = true;
+            updated = true;
+        }
+
+        if (updated) {
+            setCostOnNodes();
+        }
+        return updated;
     }
     // Visualization of f and g values on nodes
     private void getCost(Node node) {
@@ -186,5 +178,29 @@ public class DemoPanel extends JPanel {
                 current.setAsPath();
             }
         }
+    }
+
+    // method used to reset to initial state
+    public void resetGrid() {
+        startNode = null;
+        goalNode = null;
+        currentNode = null;
+        goalReached = false;
+        step = 0;
+
+        openList.clear();
+        checkedList.clear();
+
+        int col = 0; int row = 0;
+        while (col < maxCol && row < maxRow) {
+            node[col][row].reset();
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
+        }
+
+        requestFocusInWindow();
     }
 }

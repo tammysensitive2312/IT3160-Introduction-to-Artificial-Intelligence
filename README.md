@@ -25,3 +25,5 @@
 Customize start and finish buttons, customize obstacles, increase map size
 
 After doing the above steps, you will enter the test on the actual map
+
+- v2.0 has made all of the above adjustments
