@@ -26,4 +26,5 @@ Customize start and finish buttons, customize obstacles, increase map size
 
 After doing the above steps, you will enter the test on the actual map
 
-- v2.0 has made all of the above adjustments
+- v1.2 has made all of the above adjustments, this work is just a demo implementation of the algorithm on the matrix, it can be used as the core for finding the way for the game bot ...
+- v2.0 is done on the actual map, is the main project ...
